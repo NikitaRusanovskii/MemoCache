@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Cache.h"
 #include <unordered_map>
 #include <list>
@@ -13,9 +13,9 @@ private:
 		Here I learned that the compiler did not understand that std::list<Tkey>::iterator is a type.
 			Therefore, I had to use the new keyword typename, which explicitly tells the compiler
 			that the type name comes after it.
-		Здесь узнал, что компилятор не понял, что std::list<Tkey>::iterator - есть тип.
-			Поэтому пришлось использовать новое ключевое слово typename, которое явно говорит компилятору,
-			что после него идёт имя типа.
+		Р—РґРµСЃСЊ СѓР·РЅР°Р», С‡С‚Рѕ РєРѕРјРїРёР»СЏС‚РѕСЂ РЅРµ РїРѕРЅСЏР», С‡С‚Рѕ std::list<Tkey>::iterator - РµСЃС‚СЊ С‚РёРї.
+			РџРѕСЌС‚РѕРјСѓ РїСЂРёС€Р»РѕСЃСЊ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ РЅРѕРІРѕРµ РєР»СЋС‡РµРІРѕРµ СЃР»РѕРІРѕ typename, РєРѕС‚РѕСЂРѕРµ СЏРІРЅРѕ РіРѕРІРѕСЂРёС‚ РєРѕРјРїРёР»СЏС‚РѕСЂСѓ,
+			С‡С‚Рѕ РїРѕСЃР»Рµ РЅРµРіРѕ РёРґС‘С‚ РёРјСЏ С‚РёРїР°.
 	*/
 	std::unordered_map<Tkey, typename std::list<Tkey>::iterator> key_iter;
 	std::list<Tkey> lru_list;
@@ -43,14 +43,14 @@ public:
 	}
 
 	Tvalue& get(const Tkey& key) override {
-		auto iter_pair = this->storage.find(key); // вернул итератор
+		auto iter_pair = this->storage.find(key); // РІРµСЂРЅСѓР» РёС‚РµСЂР°С‚РѕСЂ
 		if (iter_pair == this->storage.end()) {
 			throw std::runtime_error("the key was not found in the storage");
 		}
 		lru_list.erase(key_iter[key]);
 		lru_list.push_front(key);
 		key_iter[key] = lru_list.begin();
-		return iter_pair->second; // разыменовал итератор(ссылка на пару)
+		return iter_pair->second; // СЂР°Р·С‹РјРµРЅРѕРІР°Р» РёС‚РµСЂР°С‚РѕСЂ(СЃСЃС‹Р»РєР° РЅР° РїР°СЂСѓ)
 	}
 
 	void erase(const Tkey& key) override {
@@ -67,6 +67,6 @@ public:
 /*
 	Some characteristics:
 		On average, the speed of put, get, erase operations is O(1)
-	Немного характеристик:
-		В среднем, скорость операций put, get, erase составляет O(1)
+	РќРµРјРЅРѕРіРѕ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє:
+		Р’ СЃСЂРµРґРЅРµРј, СЃРєРѕСЂРѕСЃС‚СЊ РѕРїРµСЂР°С†РёР№ put, get, erase СЃРѕСЃС‚Р°РІР»СЏРµС‚ O(1)
 */

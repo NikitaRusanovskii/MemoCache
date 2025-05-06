@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <unordered_map>
 #include <stdexcept>
 #include <list>
@@ -11,11 +11,11 @@ protected:
 public:
 
 	virtual Tvalue& get(const Tkey& key) {
-		auto iter_pair = storage.find(key); // вернул итератор
+		auto iter_pair = storage.find(key); // РІРµСЂРЅСѓР» РёС‚РµСЂР°С‚РѕСЂ
 		if (iter_pair == storage.end()) {
 			throw std::runtime_error("the key was not found in the storage");
 		}
-		return iter_pair->second; // разыменовал итератор(ссылка на пару)
+		return iter_pair->second; // СЂР°Р·С‹РјРµРЅРѕРІР°Р» РёС‚РµСЂР°С‚РѕСЂ(СЃСЃС‹Р»РєР° РЅР° РїР°СЂСѓ)
 	}
 	virtual void put(const Tkey& key, const Tvalue& item) {
 		storage[key] = item;
