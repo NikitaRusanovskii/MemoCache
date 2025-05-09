@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cache.h">
+    <ClInclude Include="BaseCache.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LRUCache.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="LFUCache.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

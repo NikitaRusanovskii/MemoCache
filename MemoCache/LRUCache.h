@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Cache.h"
+#include "BaseCache.h"
 #include <unordered_map>
 #include <list>
 #include <stdexcept>

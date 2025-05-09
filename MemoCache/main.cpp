@@ -1,49 +1,35 @@
-#include "LRUCache.h"
 #include <iostream>
-#include <exception>
-
-
-using namespace std;
-
+#include "LFUCache.h"
 
 int main() {
-    try {
-        LRUCache<int, int> my_lru(0); // пробуем создать хранилище нулевого размера
-    }
-    catch (exception ex) {
-        cout << "TEST 1 - zero size storage - " << ex.what() << endl;
-    }
+    LFUCache<int, std::string> cache(3);  // Ємкость = 3
 
-    LRUCache<int, int> my_lru(10); // создаЄм нормальное хранилище
+    cache.put(1, "one");
+    cache.put(2, "two");
+    cache.put(3, "three");
 
-    try {
-        my_lru.get(1344); // пробуем получить данные по несуществующему ключу
-    }
-    catch (exception ex) {
-        cout << "TEST 2 - non-existent key - " << ex.what() << endl;
-    }
+    std::cout << "Get 1: " << cache.get(1) << "\n"; // повышает частоту 1
+    std::cout << "Get 1: " << cache.get(1) << "\n"; // ещЄ раз Ч частота 1 = 3
+    std::cout << "Get 2: " << cache.get(2) << "\n"; // частота 2 = 2
+
+    cache.put(4, "four"); // вытеснит 3, так как у него наименьша€ частота (1)
 
     try {
-        my_lru.erase(4124); // пробуем удалить данные по несуществующему ключу
+        cache.get(3); // должен кинуть исключение
     }
-    catch (exception ex) {
-        cout << "TEST 3 - deleting data by non-existent key - " << ex.what() << endl;
+    catch (const std::exception& ex) {
+        std::cout << "Exception caught: " << ex.what() << "\n";
     }
 
-    my_lru.put(3, 3);
-    my_lru.put(4, 5);
-    my_lru.put(3, 4);
+    std::cout << "Get 4: " << cache.get(4) << "\n"; // должен быть доступен
 
-    cout << "VALUE 1: " << my_lru.get(3) << " ||| VALUE 2: " << my_lru.get(4) << endl;
-    my_lru.erase(3);
-    
+    cache.erase(1); // удалим ключ 1
     try {
-        my_lru.get(3);
+        cache.get(1); // должен кинуть исключение
     }
-    catch (exception ex) {
-        cout << "TEST 4 - non-existent key again - " << ex.what() << endl;
+    catch (const std::exception& ex) {
+        std::cout << "Exception caught after erase: " << ex.what() << "\n";
     }
 
     return 0;
-
 }

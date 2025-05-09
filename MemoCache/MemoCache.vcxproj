@@ -127,7 +127,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Cache.h" />
+    <ClInclude Include="BaseCache.h" />
+    <ClInclude Include="LFUCache.h" />
     <ClInclude Include="LRUCache.h" />
   </ItemGroup>
   <ItemGroup>
