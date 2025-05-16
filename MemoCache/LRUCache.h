@@ -8,7 +8,7 @@
 template<class Tkey, class Tvalue>
 class LRUCache : public BaseCache<Tkey, Tvalue> {
 private:
-	size_t max_num_of_elements;
+	size_t capacity;
 	/*
 		Here I learned that the compiler did not understand that std::list<Tkey>::iterator is a type.
 			Therefore, I had to use the new keyword typename, which explicitly tells the compiler
@@ -20,8 +20,8 @@ private:
 	std::unordered_map<Tkey, typename std::list<Tkey>::iterator> key_iter;
 	std::list<Tkey> lru_list;
 public:
-	LRUCache(size_t max_num_of_elements) : max_num_of_elements(max_num_of_elements) {
-		if (max_num_of_elements == 0) throw std::runtime_error("storage size must be greater than zero");
+	LRUCache(size_t capacity) : capacity(capacity) {
+		if (capacity == 0) throw std::runtime_error("storage size must be greater than zero");
 	};
 
 	void put(const Tkey& key, const Tvalue& item) override {
@@ -30,7 +30,7 @@ public:
 			lru_list.erase(key_iter[key]);
 		}
 		else {
-			if (max_num_of_elements <= lru_list.size()) {
+			if (capacity <= lru_list.size()) {
 				auto oldKey = lru_list.back();
 				lru_list.pop_back();
 				key_iter.erase(oldKey);

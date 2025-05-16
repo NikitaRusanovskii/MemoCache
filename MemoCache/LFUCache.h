@@ -16,7 +16,9 @@ private:
     std::unordered_map<Tkey, typename std::list<KaC>::iterator> key_iter; // access iterator by key
     size_t capacity;
 public:
-    LFUCache(size_t capacity) : capacity(capacity) {};
+    LFUCache(size_t capacity) : capacity(capacity) {
+        if (capacity == 0) throw std::runtime_error("storage size must be greater than zero");
+    };
 
     void put(const Tkey& key, const Tvalue& item) override {
         if (this->storage.size() >= this->capacity) {
