@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include <mutex>
 #include <unordered_map>
 #include <stdexcept>
 #include <list>
@@ -7,7 +6,6 @@
 template<class Tkey, class Tvalue>
 class BaseCache {
 protected:
-	std::mutex mtx;
 	std::unordered_map<Tkey, Tvalue> storage;
 public:
 
@@ -22,7 +20,6 @@ public:
 		storage[key] = item;
 	}
 	virtual bool contains(const Tkey& key) {
-		std::lock_guard<std::mutex> lock(this->mtx);
 		if (storage.find(key) == storage.end()) {
 			return false;
 		}
@@ -35,7 +32,9 @@ public:
 		}
 	}
 	virtual void clear() {
-		std::lock_guard<std::mutex> lock(this->mtx);
 		storage.clear();
+	}
+	virtual size_t size() const {
+		return this->storage.size();
 	}
 };
